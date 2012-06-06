@@ -385,12 +385,13 @@ static BOOL _needsChineseFontCascadeFix = NO;
 	CGFloat slant = [[traits objectForKey:(id)kCTFontSlantTrait] floatValue];
 	BOOL hasItalicTrait = ([[traits objectForKey:(id)kCTFontSymbolicTrait] unsignedIntValue] & kCTFontItalicTrait) ==kCTFontItalicTrait;
 
-	if (hasItalicTrait || slant!=0) 
+	if (!hasItalicTrait || slant<0.01) 
 	{
-		return YES;
+		return NO;
 	}
 
-	return NO;
+	// font HAS italic trait AND sufficient slant angle
+	return YES;
 	
 }
 
